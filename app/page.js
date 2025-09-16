@@ -6,6 +6,8 @@
      import Cookies from 'js-cookie';
      import { Suspense } from 'react';
 
+     export const dynamic = 'force-dynamic'; // Forces dynamic rendering to avoid prerender error
+
      function HomeContent() {
        const [schedules, setSchedules] = useState([]);
        const [notifications, setNotifications] = useState([]);
