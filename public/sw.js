@@ -1,14 +1,14 @@
-self.addEventListener('push', (event) => {
-       const data = event.data.json();
-       const options = {
-         body: data.body,
-         icon: '/icon.png', // Optional: Add an icon to public folder
-         data: { url: data.url },
-       };
-       event.waitUntil(self.registration.showNotification(data.title, options));
+self.addEventListener('install', (event) => {
+       event.waitUntil(
+         caches.open('v1').then((cache) => cache.addAll([
+           '/',
+           '/index.html',
+         ]))
+       );
      });
 
-     self.addEventListener('notificationclick', (event) => {
-       event.notification.close();
-       event.waitUntil(clients.openWindow(event.notification.data.url));
+     self.addEventListener('fetch', (event) => {
+       event.respondWith(
+         caches.match(event.request).then((response) => response || fetch(event.request))
+       );
      });
