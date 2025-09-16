@@ -114,7 +114,10 @@
            recognition.start();
            setIsListening(true);
 
-           recognition.onresult = async (event) => {
+           recognition.onresult = async (event) => {if (text.toLowerCase().includes('hi')) {
+  speak('Hello! Nice to hear from you. How can I assist today?');
+  return;
+}
              const text = event.results[0][0].transcript;
              setTranscript(text);
              setIsListening(false);
